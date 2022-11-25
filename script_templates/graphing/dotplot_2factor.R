@@ -17,8 +17,8 @@ ggplot(
                width = 0.4, size = 0.75, #play with these values as needed
                position=position_dodge(width=1), #match this width to dodge.width above
                show.legend = FALSE) + 
-  ylab("___") +
-  xlab("___") +
+  xlab("___") +  #replace blank with nicer looking label for the axis
+  ylab("___") +  #replace blank with nicer looking label for the axis
   coord_cartesian(expand=TRUE) +
   theme_classic(base_size=14)  
 

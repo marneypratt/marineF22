@@ -14,8 +14,8 @@ ggplot(
                fun.max = function(x) mean(x) + sd(x), 
                na.rm = TRUE, size = 1,
                show.legend = FALSE) +
-  ylab("___") +
-  xlab("___") +
+  xlab("___") +  #replace blank with nicer looking label for the axis
+  ylab("___") +  #replace blank with nicer looking label for the axis
   coord_cartesian(expand=TRUE) +
   theme_classic(base_size=14)  
 
