@@ -36,7 +36,6 @@ Make sure to select "Comma-separated values (.csv)" and copy the URL for the lin
 
 Paste the URL into the blank below then run the code chuck to import
 
-
 ```{r import data}
 
 
