@@ -24,13 +24,15 @@ library(ggbeeswarm)
 
 # Import Data
 
-Make sure your data is in "tidy" format 
+Make sure your data is in "tidy" format
 
-Here is is a link with some information about what tidy data is:
-[TIDY DATA FOR EFFICIENCY, REPRODUCIBILITY, AND COLLABORATION](https://www.openscapes.org/blog/2020/10/12/tidy-data/)
+Here is is a link with some information about what tidy data is: [TIDY DATA FOR EFFICIENCY, REPRODUCIBILITY, AND COLLABORATION](https://www.openscapes.org/blog/2020/10/12/tidy-data/)
 
-I recommend using a csv file to store your dataset and then using readr to import it. One easy way to share data with a collaborator but still import into R is to use Google Sheets and then "publish to the web" as a csv (I will demo this in class)
+I recommend using a csv file to store your dataset and then using readr to import it. One easy way to share data with a collaborator but still import into R is to use Google Sheets and then go to File --\> Share--\> "publish to the web" as a csv
 
+Make sure to select "Comma-separated values (.csv)" and copy the URL for the link shown as seen in the image below:
+
+![](images/save_to_web.png){fig-alt="Under link make sure that entire document and comma-separated values (.csv) are selected when you publish to the web. Copy the link shown." width="457"}
 
 Paste the URL into the blank below then run the code chuck to import
 
@@ -43,18 +45,19 @@ my.data <- read_csv("___")
 
 # Data Wrangling
 
-To get your data ready to graph, you will need to do some calculations and other "wrangling" to get it in shape. You can do this in Excel or Google Sheets and then upload just the ready to graph dataset. 
+To get your data ready to graph, you will need to do some calculations and other "wrangling" to get it in shape. You can do this in Excel or Google Sheets and then upload the dataset once it is fully ready to graph. Your dataset is ready to graph when it is in "tidy" format and each row represents a single value for each behavior from each observational period
+
+Here is an example of a "tidy" dataset that is in raw format (no wrangling done): [raw example dataset](https://docs.google.com/spreadsheets/d/1wYSSC5Ji5ZBub-jDIItC6VNt3DG_lWmtE4KV4VvljqA/edit?usp=sharing)
+
+Here is an example of the same dataset once it is ready to graph: [summarized example dataset](https://docs.google.com/spreadsheets/d/1GzYmA1JeUeK9VwwhrxfnipUaOH6ZXQbTJ4E23EfK0X8/edit?usp=sharing)
 
 If you want to try doing the data wrangling with R, find the code you need by looking in the "data_wrangling" folder within the "script_templates" folder. Copy and paste the code you need in the chunk below.
-
 
 ```{r data wrangling}
 
 
 
 ```
-
-
 
 # Data Description
 
@@ -66,8 +69,6 @@ Find the code you need to describe your data by looking in the "descriptive_stat
 
 
 ```
-
-
 
 # Data Visualization
 
@@ -82,8 +83,7 @@ Find the code you need to visualize (=graph) your data by looking in the "graphi
 
 To save your graph with the `ggsave()` function, you need to name the resulting file with surrounding " ", and indicate the size via height, width, and units. Don't forget to save the graph with a dpi call between 300-500 to make it nice and crisp! Look at the `ggsave()` help file for more information and options.
 
-the way the code below is setup, it will save the last graph you made
-replace the blank with a name to give your graph file
+the way the code below is setup, it will save the last graph you made replace the blank with a name to give your graph file
 
 ```{r Save your graph, eval = F}
 

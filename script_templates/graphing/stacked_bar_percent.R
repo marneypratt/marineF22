@@ -17,9 +17,9 @@ ggplot(
                                "___", 
                                "___",
                                "___")) +
-  xlab("___") +
-  ylab("___") +
-  coord_cartesian(ylim=c(0,1), expand=FALSE, clip='off') +
+  xlab("___") +  #replace blank with nicer looking label for the axis
+  ylab("___") +  #replace blank with nicer looking label for the axis
+  coord_cartesian(expand=FALSE, clip='off') +
   scale_y_continuous(labels = scales::percent_format()) +
   theme_classic(base_size=12)  
 
