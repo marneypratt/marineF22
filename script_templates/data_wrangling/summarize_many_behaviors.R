@@ -20,5 +20,5 @@ summary.data <- my.data %>%
 
   #calculate the percentage of animals observed doing a particular behavior
   #replace the blank with the total animals present
-  mutate(ave_percent_obs = ave_num/___*100) %>% 
+  mutate(ave_percent_obs = ave_num/___*100) 
                                       
