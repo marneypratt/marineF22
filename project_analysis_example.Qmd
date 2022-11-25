@@ -1,6 +1,6 @@
 ---
-title: "Indepedent Project Analysis"
-author: "Your Name Here"
+title: "Indepedent Project Analysis 2 Factor Analysis"
+author: "Marney"
 format: html
 editor: visual
 ---
@@ -77,6 +77,30 @@ summary.data <- my.data.long %>%
   mutate(ave_percent_obs = ave_num/3*100)
 
 
+#reorder factors
+summary.data$time_period <- factor(summary.data$time_period, levels=c("morning", "afternoon"))
+
+summary.data$behavior <- factor(summary.data$behavior, 
+                                levels=c("foraging", 
+                                         "swimming",
+                                         "interact_shore",
+                                         "interact_water",
+                                         "rest_shore",
+                                         "rest_water",
+                                         "other",
+                                         "out_view"))
+
+#make nicer labels for behaviors (must be in same order as the factor)
+ behavior_names <- c("foraging", 
+                     "swimming",
+                     "interacting on the shore",
+                     "interacting in the water", 
+                     "resting on the shore",
+                     "resting in the water",
+                     "other",
+                     "out of view")
+
+
 ```
 
 # Data Description
@@ -121,10 +145,12 @@ ggplot(
                show.legend = FALSE) + #match this width to dodge.width above
   scale_fill_discrete(name="Time Period") +
   guides(color = "none") +
+  scale_x_discrete(labels = behavior_names) +
   ylab("Percentage Observed") +
   xlab("Behavior") +
   coord_cartesian(expand=TRUE) +
-  theme_classic(base_size=11)  
+  theme_classic(base_size=16) +
+  theme(axis.text.x = element_text(size=10, angle=45, hjust=1, vjust=1))  
 
 
 ```
@@ -142,8 +168,6 @@ ggsave(filename="dotplot_graph.png",  #recommended to use.png or .jpg file types
 
 ```
 
-
-
 ```{r stacked graph}
 
 
@@ -152,14 +176,7 @@ ggplot(
   aes(x=time_period, y=ave_percent_obs, fill = behavior))+
   geom_bar(position = "fill", stat="identity")+
   scale_fill_discrete(name="Behaviors",
-                      labels=c("foraging", 
-                               "interacting on the shore",
-                               "interacting in the water", 
-                               "resting on the shore", 
-                               "resting in the water",
-                               "other",
-                               "out of view",
-                               "swimming")) +
+                      labels=behavior_names) +
   xlab("Time Period") +
   ylab("Percent Observed") +
   coord_cartesian(expand=FALSE, clip='off') +
