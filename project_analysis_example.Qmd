@@ -199,3 +199,34 @@ ggsave(filename="stacked_graph.png",  #recommended to use.png or .jpg file types
        dpi = 300)
 
 ```
+
+
+```{r}
+# this code will make a bar graph with means and standard errors
+
+#first calculate the mean, sd, & count the observations in each group
+df.sum <- summary.data %>%               #data frame name here
+  group_by(time_period, behavior) %>%        #name of 2 factors here
+  summarise(mean = mean(ave_percent_obs),   #continuous variable here
+            sd = sd(ave_percent_obs),       #same continuous variable as above here
+            n = n()) 
+
+#make bar graph
+ggplot(
+  data=df.sum, 
+  aes(x=behavior, y=mean, fill=time_period)) + #behavior for x, 2nd factor as fill
+  geom_bar(stat="identity", position="dodge", width = 0.5)+
+  geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), 
+                position=position_dodge(width = 0.5), #this width must match width in geom_bar above
+                width=0.2, size=0.5, show.legend = FALSE) +
+  scale_fill_discrete(name="Time Period") +
+  scale_x_discrete(labels = behavior_names) +
+  ylab("Percentage Observed") +
+  xlab("Behavior") +
+  coord_cartesian(ylim = c(0,100), expand=TRUE) +
+  theme_classic(base_size=16) +
+  theme(axis.text.x = element_text(size=10, angle=45, hjust=1, vjust=1)) 
+
+
+```
+
