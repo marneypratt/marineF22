@@ -57,12 +57,18 @@ If you want to try doing the data wrangling with R, find the code you need by lo
 
 my.data.long <- my.data %>% 
   
+  #filter out when no otters were visible
+  filter(out_view<3) %>% 
+  
   #change from wide to long format to make one column for all behaviors
   #replace first blank with name of first behavior column
   #replace second blank with name of last behavior column
-  pivot_longer(cols = rest_shore:out_view,
+  pivot_longer(cols = rest_shore:other,
                names_to = "behavior",
-               values_to = "number_obs") 
+               values_to = "number_obs") %>% 
+
+  #calculate percent observed of otters in view
+  mutate(percent_obs = number_obs/in_view*100)
   
 
 summary.data <- my.data.long %>% 
@@ -73,8 +79,8 @@ summary.data <- my.data.long %>%
   #replace the first blank with the name of the column with your factor you want to compare
   #replace the second blank with a unique identifier for each observational time period
   group_by(time_period, observation_num, behavior) %>% 
-  summarize(ave_num = mean(number_obs)) %>% 
-  mutate(ave_percent_obs = ave_num/3*100)
+  summarize(ave_percent_obs = mean(percent_obs)) 
+  
 
 
 #reorder factors
@@ -87,8 +93,7 @@ summary.data$behavior <- factor(summary.data$behavior,
                                          "interact_water",
                                          "rest_shore",
                                          "rest_water",
-                                         "other",
-                                         "out_view"))
+                                         "other"))
 
 #make nicer labels for behaviors (must be in same order as the factor)
  behavior_names <- c("foraging", 
@@ -97,8 +102,7 @@ summary.data$behavior <- factor(summary.data$behavior,
                      "interacting in the water", 
                      "resting on the shore",
                      "resting in the water",
-                     "other",
-                     "out of view")
+                     "other")
 
 
 ```
@@ -146,7 +150,7 @@ ggplot(
   scale_fill_discrete(name="Time Period") +
   guides(color = "none") +
   scale_x_discrete(labels = behavior_names) +
-  ylab("Percentage Observed") +
+  ylab("Percent Observed") +
   xlab("Behavior") +
   coord_cartesian(expand=TRUE) +
   theme_classic(base_size=16) +
@@ -221,7 +225,7 @@ ggplot(
                 width=0.2, size=0.5, show.legend = FALSE) +
   scale_fill_discrete(name="Time Period") +
   scale_x_discrete(labels = behavior_names) +
-  ylab("Percentage Observed") +
+  ylab("Percent Observed") +
   xlab("Behavior") +
   coord_cartesian(ylim = c(0,100), expand=TRUE) +
   theme_classic(base_size=16) +
