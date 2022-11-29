@@ -58,11 +58,9 @@ If you want to try doing the data wrangling with R, find the code you need by lo
 my.data.long <- my.data %>% 
   
   #filter out when no otters were visible
-  filter(out_view<3) %>% 
+  filter(in_view!=0) %>% 
   
   #change from wide to long format to make one column for all behaviors
-  #replace first blank with name of first behavior column
-  #replace second blank with name of last behavior column
   pivot_longer(cols = rest_shore:other,
                names_to = "behavior",
                values_to = "number_obs") %>% 
@@ -75,9 +73,6 @@ summary.data <- my.data.long %>%
   
   #calculate the average percentage of animals observed doing a particular behavior
   #for each observational time period
-  #make sure to group by any factors that want to split into
-  #replace the first blank with the name of the column with your factor you want to compare
-  #replace the second blank with a unique identifier for each observational time period
   group_by(time_period, observation_num, behavior) %>% 
   summarize(ave_percent_obs = mean(percent_obs)) 
   
