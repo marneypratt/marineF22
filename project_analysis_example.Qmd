@@ -19,6 +19,7 @@ Keep all of your analysis in this same .Qmd file and keep all the associated fil
 
 library(tidyverse)
 library(ggbeeswarm)
+library(viridis)
 
 ```
 
@@ -169,17 +170,18 @@ ggsave(filename="dotplot_graph.png",  #recommended to use.png or .jpg file types
 
 ```{r stacked graph}
 
+library(ggthemes) #to add colorblind friendly colors
 
 ggplot(
   data = summary.data, 
   aes(x=time_period, y=ave_percent_obs, fill = behavior))+
   geom_bar(position = "fill", stat="identity")+
-  scale_fill_discrete(name="Behaviors",
-                      labels=behavior_names) +
+  scale_fill_colorblind(name="Behaviors",     # for nicer labels and colorblind friendly colors
+                      labels=behavior_names)+        
   xlab("Time Period") +
   ylab("Percent Observed") +
   coord_cartesian(expand=FALSE, clip='off') +
-  scale_y_continuous(labels = scales::percent_format()) +
+  scale_y_continuous(labels = scales::percent_format()) + #for percent labels
   theme_classic(base_size=12)  
 
 
